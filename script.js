@@ -90,26 +90,54 @@ document.querySelectorAll("section").forEach(section=>{
 
 const topBtn = document.getElementById("topBtn");
 
-window.addEventListener("scroll",()=>{
+if (topBtn) {
 
-    if(window.scrollY>300)
+    topBtn.addEventListener("click", () => {
 
-        topBtn.style.display="block";
-
-    else
-
-        topBtn.style.display="none";
-
-});
-
-topBtn.onclick=()=>{
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     });
 
 }
+
+
+const gameCounter = document.getElementById("gameCounter");
+
+let started = false;
+
+const counterObserver = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting && !started) {
+
+            started = true;
+
+            let current = 0;
+            const target = 4;
+
+            const timer = setInterval(() => {
+
+                current++;
+
+                if (current < target) {
+                    gameCounter.textContent = current;
+                } else {
+                    gameCounter.textContent = target + "+";
+                    clearInterval(timer);
+                }
+
+            }, 250);
+
+        }
+
+    });
+
+}, {
+    threshold: 0.5
+});
+
+counterObserver.observe(document.querySelector(".stats"));
