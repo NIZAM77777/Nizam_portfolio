@@ -117,7 +117,7 @@ const counterObserver = new IntersectionObserver((entries) => {
             started = true;
 
             let current = 0;
-            const target = 4;
+            const target = 5;
 
             const timer = setInterval(() => {
 
